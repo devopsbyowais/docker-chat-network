@@ -252,6 +252,12 @@ docker logs -f docker-chat-network-chatroom2-1
 
 ---
 
+🤖 Author
+
+Syed Owais Ahmed
+GitHub: @devopsbyowais
+
+---
 
 👍🏻THE END >>
 
