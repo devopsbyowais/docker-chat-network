@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  chatroom1:
+    build: ./chatroom1
+    environment:
+      - PORT=3000
+      - ROOM=room1
+      - REDIS_HOST=redis
+    expose:
+      - "3000"
+    depends_on:
+      - redis
+
+  chatroom2:
+    build: ./chatroom2
+    environment:
+      - PORT=3000
+      - ROOM=room2
+      - REDIS_HOST=redis
+    expose:
+      - "3000"
+    depends_on:
+      - redis
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - chatroom1
+      - chatroom2
+
+  client:
+    build: ./redis-client
+    stdin_open: true
+    tty: true
+    depends_on:
+      - nginx
+
